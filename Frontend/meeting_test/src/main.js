@@ -5,4 +5,5 @@ import store from "./store";
 import installElementPlus from './plugins/element'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
+
 createApp(App).use(store).use(router).use(ElementPlus).mount("#app");
