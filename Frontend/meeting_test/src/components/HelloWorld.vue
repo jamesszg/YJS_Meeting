@@ -116,7 +116,7 @@
         // let pageNum = val.id
         // console.log(tmpUrl)
         // console.log(pageNum)
-         pdf.embed(this.url2, "#tablePDF", {page: val.id})
+         pdf.embed(this.url1, "#tablePDF", {page: val.id})
       }
     },
   }

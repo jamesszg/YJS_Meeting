@@ -4,27 +4,20 @@
   <div>
     <el-button type="primary" @click='msg = !msg'>折叠</el-button>
   </div>
-  <div v-if='msg'>
-    HelloWorld
-    <HelloWorld></HelloWorld>
-  </div>
-  <div v-else>
-    pdfVue
-    <pdfVue></pdfVue>
-  </div>
-  
+  <div v-if='msg'>true</div>
+  <div v-else>false</div>
+  <HelloWorld></HelloWorld>
 </template>
 
 <script>
 
 
 import HelloWorld from './components/HelloWorld.vue'
-import pdfVue from './components/Table.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,pdfVue
+    HelloWorld,
   },
   data: function(){
     return{
