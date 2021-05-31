@@ -1,0 +1,86 @@
+<template>
+    <div class="meeting">
+        <el-container>
+            <el-aside width="35%">
+                <!-- 
+                <div v-for="(process,index) in processes">{{process}}</div>
+                <el-button v-for="(process, index) in processes" type="primary" plain style="margin-left: 0px; height: 100px;" @click="goTo(process)">
+                    Process_{{process.id}}
+                </el-button> 
+                -->
+                <el-menu class="el-menu-vertical" v-for="(process, idx) in processes" @open="handleOpen"
+                    @close="handleClose" @select="select">
+                    <el-submenu :index=idx+1>
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>议程{{idx+1}}</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index='brief'>Brief</el-menu-item>
+                            <el-menu-item index='student'>Student</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                </el-menu>
+            </el-aside>
+            <el-container>
+                <el-header>header</el-header>
+                <el-main style="height: 500px;">
+                    <router-view></router-view>
+                </el-main>
+            </el-container>
+        </el-container>
+    </div>
+</template>
+
+<script>
+    export default {
+        methods: {
+            goTo(src) {
+                let process = src;
+                console.log(process.id)
+                console.log(process.url)
+            },
+            select(index, path) {
+                console.log(index)
+                console.log(path)
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        },
+        data() {
+            return {
+                processes: [{
+                        id: 1,
+                        url: 'process_url_01'
+                    },
+                    {
+                        id: 2,
+                        url: 'process_url_02'
+                    },
+                    {
+                        id: 3,
+                        url: 'process_url_03'
+                    },
+                    {
+                        id: 4,
+                        url: 'process_url_04'
+                    }
+                ],
+                Nowtitle: 'Init'
+            }
+        }
+    }
+</script>
+
+<style>
+    .el-aside {
+        background-color: antiquewhite;
+        display: flex;
+        flex-direction: column;
+        margin-left: 0;
+    }
+</style>

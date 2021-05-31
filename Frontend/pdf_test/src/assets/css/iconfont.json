@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6970020",
+      "name": "会议",
+      "font_class": "huiyi",
+      "unicode": "e6fd",
+      "unicode_decimal": 59133
+    },
+    {
+      "icon_id": "7055654",
+      "name": "介绍",
+      "font_class": "jieshao",
+      "unicode": "e72f",
+      "unicode_decimal": 59183
+    },
+    {
+      "icon_id": "11975950",
+      "name": "投票",
+      "font_class": "zu",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "16391391",
+      "name": "首页",
+      "font_class": "biaoqiankuozhan_shouye-186",
+      "unicode": "eb32",
+      "unicode_decimal": 60210
+    }
+  ]
+}

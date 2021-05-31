@@ -1,0 +1,19 @@
+/*全局CSS文件*/
+@import "./normalize.css";
+
+:root{
+    --color-text: #666666;
+    --color-high-text: #42bbaa;
+}
+
+*,
+*::before,*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    user-select: none; /*禁止用户选择文件或图片*/
+}
+
