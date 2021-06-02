@@ -7,7 +7,13 @@ import Process from "../views/process.vue";
 import meeting from "../views/meeting.vue";
 import nullPage from "../views/null.vue";
 import pdfView from "../views/pdfView.vue";
+import pdfVuer from "../views/pdfVuer.vue";
 Vue.use(VueRouter);
+
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err);
+};
 
 const routes = [
   {
@@ -19,11 +25,15 @@ const routes = [
     path: "/meeting",
     name: "meeting",
     component: meeting,
-    children:[
+    children: [
       {
-        path:"/",
-        component:brief,
-        redirect:"pdfView",
+        path: "/",
+        component: nullPage,
+      },
+      {
+        path: "nullpage",
+        name: "nullPage",
+        component: nullPage,
       },
       {
         path: "pdfView",
@@ -31,11 +41,11 @@ const routes = [
         component: pdfView,
       },
       {
-        path: "student",
-        name: "student",
-        component: student,
+        path: "pdfVuer",
+        name: "pdfVuer",
+        component: pdfVuer,
       },
-    ]
+    ],
   },
   {
     path: "/process",

@@ -16,10 +16,11 @@
   import pdf from 'pdfobject'
   export default {
     mounted() {
-      pdf.embed(this.url2, "#tablePDF");
+      pdf.embed(this.trueUrl, "#tablePDF");
     },
     data() {
       return {
+        process_id: -1,
         trueUrl: '/testpdf.pdf',
         url1: '/new_helper2.pdf',
         url2: '/testpdf.pdf',
@@ -33,17 +34,17 @@
             msg: 'url1'
           },
           {
-            id: 25,
+            id: 2,
             title: 'process_02',
             msg: 'url2'
           },
           {
-            id: 50,
+            id: 3,
             title: 'process_03',
             msg: 'url3'
           },
           {
-            id: 75,
+            id: 4,
             title: 'process_04',
             msg: 'url4'
           },
@@ -52,6 +53,9 @@
       };
     },
     methods: {
+      reEmbed(){
+        pdf.embed(this.trueUrl, "#tablePDF");
+      },
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
@@ -88,9 +92,30 @@
         // let pageNum = val.id
         // console.log(tmpUrl)
         // console.log(pageNum)
-        pdf.embed(this.url2, "#tablePDF", {
+        pdf.embed(this.trueUrl, "#tablePDF", {
           page: val.id
         })
+      }
+    },
+    watch: {
+      '$route'(to, from) {
+        if (to.name === 'pdfView') {
+          console.log(to.query)
+          this.process_id = to.query.processid;
+          if (this.process_id === 1) {
+            this.trueUrl = '/new_helper2.pdf'
+          }
+          if (this.process_id === 2) {
+            this.trueUrl = '/test.pdf'
+          }
+          if (this.process_id === 3) {
+            this.trueUrl = '/testpdf.pdf'
+          }
+          if (this.process_id === 4) {
+            this.trueUrl = '/new_helper2.pdf'
+          }
+          this.reEmbed();
+        }
       }
     },
   }

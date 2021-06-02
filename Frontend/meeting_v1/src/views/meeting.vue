@@ -8,16 +8,16 @@
                     Process_{{process.id}}
                 </el-button> 
                 -->
-                <el-menu class="el-menu" @open="handleOpen" unique-opened=true
-                    @close="handleClose" @select="select" active-text-color=#303133 text-color= #303133 style="height: 100%;">
+                <el-menu class="el-menu" @open="handleOpen" unique-opened=true @close="handleClose" @select="select"
+                    active-text-color=#303133 text-color=#303133 style="height: 100%;">
                     <el-submenu v-for="(process, idx) in processes" :index=idx+1>
                         <template slot="title">
                             <i class="el-icon-location"></i>
-                            <span >议程{{idx+1}}</span>
+                            <span>议程{{idx+1}}</span>
                         </template>
-                        <el-menu-item-group>
-                            <el-menu-item index='brief' >Brief</el-menu-item>
-                            <el-menu-item index='student' >Student</el-menu-item>
+                        <el-menu-item-group style="width: 100%; margin-left: 0px;">
+                            <el-menu-item index='brief'>Brief</el-menu-item>
+                            <el-menu-item index='student'>Student</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -41,24 +41,31 @@
                 console.log(process.url)
             },
             select(index, path) {
-                console.log(index)
-                console.log(path)
+                let process_id = path[0]
+                let pdfUrl = path[1]
+                this.$router.push(
+                    {
+                        name:'pdfVuer',
+                        query:{
+                            processid: process_id,
+                            url: pdfUrl
+                        }
+                    }
+                )
             },
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
-                this.Nowtitle = "议程"+key;
-                // this.$router.push(
-                //     {
-                //         name:'brief',
-                //         params:{
-                //             process_id:key
-                //         }
-                //     }
-                // )
+                this.Nowtitle = "议程" + key;
+                this.$router.push({
+                    name: "pdfView",
+                    query: {
+                        processid: key
+                    }
+                })
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
-                this.Nowtitle = "议程"+key;
+                this.Nowtitle = "议程" + key;
                 // this.$router.push(
                 //     {
                 //         name:'brief',
@@ -100,6 +107,7 @@
         display: flex;
         flex-direction: column;
         margin-left: 0;
+        width: 100%;
         height: 550px;
     }
 </style>
