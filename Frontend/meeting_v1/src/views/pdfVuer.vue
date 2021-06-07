@@ -4,7 +4,7 @@
         {{processid}}
         {{pdfurl}}
         <div id='vuer' style="width: 100%; height: 300px; background-color: aqua;">
-            <pdf :src="pdfdata" v-for="i in numPages" :key="i" :id="i" :page="i" :scale.sync="scale"
+            <pdf :src="pdfurl" v-for="i in numPages" :key="i" :id="i" :page="i" :scale.sync="scale"
                 style="width:100%;margin:20px auto;" :annotation="true" :resize="true" @link-clicked="handle_pdf_link">
                 <template slot="loading">
                     loading content here...
@@ -91,16 +91,21 @@
         },
         created() {
             console.log('created');
-            let to = this.$route
-            this.processid = to.query.processid
-            this.pdfurl = to.query.url
+            // let to = this.$route
+            // this.processid = to.query.processid
+            // this.pdfurl = to.query.url
+            console.log(this.$route.params)
+            this.processid = this.$route.params.process_id;
+            this.pdfurl = this.$route.params.pdf_url;
             this.$forceUpdate()
+            console.log(this.processid)
+            console.log(this.pdfurl)
         },
         watch: {
             $route(to, from) {
                 if (to.name === 'pdfVuer') {
-                    this.processid = to.query.processid
-                    this.pdfurl = to.query.url
+                    this.processid = this.$route.process_id;
+                    this.pdfurl = this.$route.pdf_url;
                     this.$forceUpdate()
                 }
             },

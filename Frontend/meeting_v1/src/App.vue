@@ -8,13 +8,14 @@
   <div v-if=start>
     <el-container style="display: flex; flex-direction: column;">
       <el-header>
-        <el-button type='primary'>返回上一级</el-button>
+        <!-- <el-button type='primary'>返回上一级</el-button> -->
+        会议系统前端Demo
       </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
       <el-footer>
-        <el-button @click="goback">默认按钮</el-button>
+        <el-button @click="goback">返回主页</el-button>
       </el-footer>
     </el-container>
   </div>

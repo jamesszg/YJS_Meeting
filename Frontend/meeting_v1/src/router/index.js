@@ -36,7 +36,7 @@ const routes = [
         component: nullPage,
       },
       {
-        path: "pdfView",
+        path: "pdfView/:process_id",
         name: "pdfView",
         component: pdfView,
       },

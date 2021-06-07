@@ -16,8 +16,8 @@
                             <span>议程{{idx+1}}</span>
                         </template>
                         <el-menu-item-group style="width: 100%; margin-left: 0px;">
-                            <el-menu-item index='brief'>Brief</el-menu-item>
-                            <el-menu-item index='student'>Student</el-menu-item>
+                            <el-menu-item index='brief'>Brief_PDFObject</el-menu-item>
+                            <el-menu-item index='student'>Student_PDFVuer</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -43,59 +43,87 @@
             select(index, path) {
                 let process_id = path[0]
                 let pdfUrl = path[1]
-                this.$router.push(
-                    {
-                        name:'pdfVuer',
-                        query:{
-                            processid: process_id,
-                            url: pdfUrl
+                if (pdfUrl == "brief") {
+                    console.log("Yes")
+                    this.$router.push({
+                        name: 'pdfView',
+                        // query: {
+                        //     processid: process_id,
+                        //     url: pdfUrl
+                        // }
+                        params:{
+                            process_id: process_id,
+                            pdf_url: this.pdfurlList[process_id]
                         }
-                    }
-                )
+                    })
+                } else {
+                    console.log("No")
+                    this.$router.push({
+                        name: 'pdfVuer',
+                        params:{
+                            process_id: process_id,
+                            pdf_url: this.pdfurlList[process_id]
+                        }
+                    })
+                }
             },
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
                 this.Nowtitle = "议程" + key;
                 this.$router.push({
                     name: "pdfView",
-                    query: {
-                        processid: key
+                    // query: {
+                    //     processid: key
+                    // }
+                    params:{
+                        process_id: key,
+                        pdf_url: this.pdfurlList[key]
                     }
                 })
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
                 this.Nowtitle = "议程" + key;
-                // this.$router.push(
-                //     {
-                //         name:'brief',
-                //         params:{
-                //             process_id:key
-                //         }
-                //     }
-                // )
+                this.$router.push({
+                    name: "pdfView",
+                    // query: {
+                    //     processid: key
+                    // }
+                    params:{
+                        process_id: key,
+                        pdf_url: this.pdfurlList[key]
+                    }
+                })
             }
         },
         data() {
             return {
                 processes: [{
                         id: 1,
-                        url: 'process_url_01'
+                        url: '/testpdf.pdf'
                     },
                     {
                         id: 2,
-                        url: 'process_url_02'
+                        url: '/new_helper2.pdf'
                     },
                     {
                         id: 3,
-                        url: 'process_url_03'
+                        url: '/test.pdf'
                     },
                     {
                         id: 4,
-                        url: 'process_url_04'
+                        url: '/testpdf.pdf'
                     }
                 ],
+                pdfurlList:[
+                    "error","/1.pdf","/2.pdf","/3.pdf","/4.pdf"
+                ],
                 Nowtitle: '议程1'
+            }
+        },
+        watch:{
+            '$route'(to,from){
+                console.log('router')
             }
         }
     }

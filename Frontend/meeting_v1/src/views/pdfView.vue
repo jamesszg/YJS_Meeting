@@ -1,14 +1,23 @@
 <template>
-  <div class="pdfView" style="width: 100%; height: 100%; background-color: #fff; display: flex;">
-    <el-table ref="singleTable" highlight-current-row @current-change="handleCurrentChange"
-      style="border: 1px;top: 0px; height: auto; flex-direction: column; width: 15%;" :data="tableData">
-      <!-- <el-table-column style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+  <div class="pdfView"
+    style="width: 100%; height: 100%; background-color: #fff; display: flex; flex-direction: column;">
+    <div style="width: 100%; height: 100px;">
+      {{process_id}}
+      {{trueUrl}}
+      <el-button @click='logrouter'>router</el-button>
+    </div>
+    <div style="width: 100%; height: 600px; display: flex; flex-direction: row;">
+      <el-table ref="singleTable" highlight-current-row @current-change="handleCurrentChange"
+        style="border: 1px;top: 0px; height: auto; flex-direction: column; width: 15%;" :data="tableData">
+        <!-- <el-table-column style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
                 <button style="display: flex; align-items: center;">??</button>
               </el-table-column> -->
-      <el-table-column prop="id" align="center">
-      </el-table-column>
-    </el-table>
-    <div id='tablePDF' style="width: 85%;background-color: antiquewhite;"></div>
+        <el-table-column prop="id" align="center">
+        </el-table-column>
+      </el-table>
+      <div id='tablePDF' style="width: 85%;background-color: antiquewhite;"></div>
+    </div>
+
   </div>
 </template>
 
@@ -53,7 +62,11 @@
       };
     },
     methods: {
-      reEmbed(){
+      logrouter() {
+        console.log("button")
+        console.log(this.$route)
+      },
+      reEmbed() {
         pdf.embed(this.trueUrl, "#tablePDF");
       },
       handleOpen(key, keyPath) {
@@ -99,9 +112,13 @@
     },
     watch: {
       '$route'(to, from) {
+        console.log('router change')
+        this.process_id = this.$route.params.process_id;
+        this.trueUrl = this.$route.params.pdf_url;
+        console.log(this.$route.params)
         if (to.name === 'pdfView') {
-          console.log(to.query)
-          this.process_id = to.query.processid;
+          console.log(to.params)
+          this.process_id = to.params.process_id;
           if (this.process_id === 1) {
             this.trueUrl = '/new_helper2.pdf'
           }
@@ -117,6 +134,12 @@
           this.reEmbed();
         }
       }
+    },
+    created() {
+      console.log('created');
+      this.process_id = this.$route.params.process_id;
+      this.trueUrl = this.$route.params.pdf_url;
+      this.$forceUpdate()
     },
   }
 </script>
